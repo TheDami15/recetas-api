@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -16,6 +17,8 @@ section{
     background-color: #fff;
    
 }
+
+/*HEADER*/
 header{
     position: absolute;
     top: 0;
@@ -30,6 +33,10 @@ header{
 header .logo{
     position: relative;
     max-width: 180px;
+    transition: 0.5s;
+}
+header .logo:hover{
+    transform: translateY(-15px);
 }
 header ul{
     position: relative;
@@ -42,10 +49,36 @@ header ul li{
 header ul li a{
     display: inline-block;
     color: #333;
-    font-weight: 400;
+    font-size: 25px;
     margin-left: 40px;
     text-decoration: none;
 }
+.first{
+    color: #66cbbb;
+}
+.second{
+    color:#f9b548;
+}
+.third{
+    color: #ec2e1e;
+}
+.first:hover{
+    color: #fff;
+    background-color: #66cbbb;
+    border-radius: 1rem;
+}
+.second:hover{
+    color:#fff;
+    background-color: #f9b548;
+    border-radius: 1rem;
+}
+.third:hover{
+    color: #fff;
+    background-color: #ec2e1e;
+    border-radius: 1rem;
+}
+
+/*BODY*/
 .content{
     position: relative;
     width: 100%;
@@ -65,7 +98,7 @@ header ul li a{
     font-weight: 500;
 }
 .content .textBox h2 span{
-    color: #017143;
+    color: #66cbbb;
     font-size: 1.2em;
     font-weight: 900;
 }
@@ -76,7 +109,7 @@ header ul li a{
     display: inline-block;
     margin-top: 20px;
     padding: 8px 20px;
-    background: #017143;
+    background: #66cbbb;
     color: #fff;
     border-radius: 40px;
     font-weight: 500;
@@ -93,11 +126,15 @@ header ul li a{
     justify-content: flex-end;
     padding-right: 50px;
     margin-top: 50px;
-  
+    
 }
 .content .imgBox img{
-   
+    transition: 0.5s;
     max-width: 460px;
+}
+.content .imgBox img:hover{
+   
+    transform: translateY(-15px);
 }
 .thumb{
     position: absolute;

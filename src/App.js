@@ -34,9 +34,9 @@ function App() {
             <header>
               <a href=''><img src={logo} className='logo'></img></a>
               <ul>
-                <li><a href='#'>Home</a></li>
-                <li><a href='#'>Menu</a></li>
-                <li><a href='#'>Form</a></li>
+                <li><a href='#' className='first'>Home</a></li>
+                <li><a href='#' className='second'>Menu</a></li>
+                <li><a href='#' className='third'>Form</a></li>
               </ul>
             </header>
 
