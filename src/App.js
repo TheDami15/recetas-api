@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import './App.css';
 import dumplin from './img/dumplins.png'
 import logo from './img/logo.png' //importamos la imagen de logo
-import gluten from './img/gluten.png' //importamos la imagen de facebook
-import inst from './img/instagram.png' //importamos la imagen de inst
-import gmail from './img/gmail.png' //importamos la imagen de gmail
+import gluten from './img/gluten.png' 
+import vegano from './img/vegano.png' 
+import sugar from './img/sugarfree.png' 
+
 
 import './styles/index.css'
 
@@ -20,6 +21,8 @@ function App() {
 
   function changeCircleColor(color) {
     setCircleColor(color); // Actualizar el estado con el nuevo color del círculo
+        // Cambiar el color del span
+        document.querySelector('h2 span').style.color = color;
   }
 
 
@@ -31,9 +34,9 @@ function App() {
             <header>
               <a href=''><img src={logo} className='logo'></img></a>
               <ul>
-                <li><a href=''>Home</a></li>
-                <li><a href=''>Menu</a></li>
-                <li><a href=''>Form</a></li>
+                <li><a href='#'>Home</a></li>
+                <li><a href='#'>Menu</a></li>
+                <li><a href='#'>Form</a></li>
               </ul>
             </header>
 
@@ -44,7 +47,7 @@ function App() {
                    consectetur adipiscing elit.
                    Cras placerat pulvinar commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus.
                 </p>
-                <a href=''>Learn More</a>
+                <a href='' style={{ background: circleColor }} >Learn More</a>
                 </div>
               <div className='imgBox'>
                 <img src={currentImage} className='food' alt='food'></img>
@@ -52,9 +55,9 @@ function App() {
             </div>
 
             <ul className='thumb'>
-              <li><img src={gmail} alt='gmail' onClick={() => { imgSlider(gmail); changeCircleColor('#66cbbb'); }}></img></li>
-              <li><img src={gluten} alt='glutenfree' onClick={() => { imgSlider(facebook); changeCircleColor('#f9b548'); }}></img></li>
-              <li><img src={inst} alt='instagram' onClick={() => { imgSlider(inst); changeCircleColor('#ec2e1e'); }}></img></li>
+              <li><img src={vegano} alt='gmail' onClick={() => { imgSlider(vegano); changeCircleColor('#66cbbb'); }}></img></li>
+              <li><img src={gluten} alt='glutenfree' onClick={() => { imgSlider(gluten); changeCircleColor('#f9b548'); }}></img></li>
+              <li><img src={sugar} alt='instagram' onClick={() => { imgSlider(sugar); changeCircleColor('#ec2e1e'); }}></img></li>
             </ul>
         </section>     
      </body>

@@ -82,6 +82,10 @@ header ul li a{
     font-weight: 500;
     letter-spacing: 1px;
     text-decoration: none;
+    transition: 0.5s;
+}
+.content .textBox a:hover{
+    transform: translateY(-10px);
 }
 .content .imgBox{
     width: 600px;
