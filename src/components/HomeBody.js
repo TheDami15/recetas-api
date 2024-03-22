@@ -40,8 +40,8 @@ const HomeBody = () => {
             </div>
 
             <ul className='thumb'>
-              <li><img src={vegano} alt='gmail' onClick={() => { imgSlider(vegano); changeCircleColor('#66cbbb'); }}></img></li>
-              <li><img src={gluten} alt='glutenfree' onClick={() => { imgSlider(gluten); changeCircleColor('#f9b548'); }}></img></li>
+              <li><img src={gluten} alt='gmail' onClick={() => { imgSlider(gluten); changeCircleColor('#f9b548'); }}></img></li>
+              <li><img src={vegano} alt='glutenfree' onClick={() => { imgSlider(vegano); changeCircleColor('#f37f34'); }}></img></li>
               <li><img src={sugar} alt='instagram' onClick={() => { imgSlider(sugar); changeCircleColor('#ec2e1e'); }}></img></li>
             </ul>
     </div>
