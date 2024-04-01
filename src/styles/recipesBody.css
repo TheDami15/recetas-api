@@ -1,9 +1,9 @@
-    .body{
-        padding-top: 120px;
-    }
+.body {
+    padding-top: 120px;
+  }
   
   .container {
-    max-width: 600px; /* Ancho máximo para el contenido */
+    max-width: 800px; /* Ancho máximo para el contenido */
     margin: 0 auto; /* Centrar el contenido en la página */
     padding: 20px;
     background-color: #f2f0f0a1; /* Color de fondo del "libro" */
@@ -12,28 +12,31 @@
   }
   
   h1 {
-    position: relative;
     text-align: center; /* Centrar el título */
-  
-  }
- 
-  .rcpul  {
-    list-style: none; /* Eliminar los puntos de la lista */
-    padding: 0;
-   
-    
   }
   
-  .rcpli {
-    list-style: none;
-    margin-bottom: 20px; /* Espacio entre elementos de la lista */
+  .recipes-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 10px;
+  }
+  
+  .recipe-card {
+    flex: 0 0 calc(33.33% - 20px); /* 33.33% de ancho para cada tarjeta, con margen entre ellas */
+    margin: 10px;
     padding: 15px; /* Espacio interno */
     border: 1px solid #ddd; /* Borde ligero */
     border-radius: 5px; /* Bordes redondeados */
     background-color: #fafafa; /* Color de fondo del elemento */
     transition: 0.5s;
   }
-  .rcpli:hover{
-    transform: scale(1.02);
+  
+  .recipe-card:hover {
+    transform: scale(1.05);
+  }
+
+  .ingr{
+    list-style: none;
   }
   
