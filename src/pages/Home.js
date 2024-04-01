@@ -1,7 +1,7 @@
 import React from 'react';
 //CSS
 import '../styles/home.css';
-import Header from '../components/Header';
+import Header from '../components/Header'; //En el App.js está el Router
 import Body from '../components/HomeBody';
 
 

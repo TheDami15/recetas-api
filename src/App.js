@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 //Pages
 import Home from './pages/Home';
 import Recipes from './pages/Recipes';
+import Form from './pages/Form';
 //CSS
 import './styles/index.css';
 
@@ -16,6 +17,7 @@ function App() {
         <Routes>
             <Route path='/' exact Component={Home}></Route>
             <Route path='/recipes' Component={Recipes}></Route>
+            <Route path='/form' Component={Form}></Route>
         </Routes>
       </div>
     </Router>

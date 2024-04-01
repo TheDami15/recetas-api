@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import logo from '../img/logo.png' //importamos la imagen de logo
 //CSS
 import '../styles/header.css'
-
+//Las Rutas están en el App.js
 
 const Header = () => {
   return (
@@ -12,7 +12,7 @@ const Header = () => {
         <header>
             <Link to='/'><img src={logo} className='logo'></img></Link>
             <ul>
-                <li><Link to='/' className='first'>Home</Link></li>
+                <li><Link to='/' className='first'>Home</Link></li> 
                 <li><Link to='/recipes' className='second'>Recipes</Link></li>
                 <li><Link to='/form' className='third'>Form</Link></li>
             </ul>
