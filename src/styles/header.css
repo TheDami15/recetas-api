@@ -44,16 +44,16 @@ header ul li a{
 }
 .first:hover{
     color: #fff;
-    background-color: #66cbbb;
+    background-color: #66cbba8f;
     border-radius: 1rem;
 }
 .second:hover{
     color:#fff;
-    background-color: #f9b548;
+    background-color: #f9b5488c;
     border-radius: 1rem;
 }
 .third:hover{
     color: #fff;
-    background-color: #ec2e1e;
+    background-color: #ec2f1e7f;
     border-radius: 1rem;
 }

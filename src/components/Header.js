@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 //IMG
 import logo from '../img/logo.png' //importamos la imagen de logo
 //CSS
@@ -9,11 +10,11 @@ const Header = () => {
   return (
     <div>
         <header>
-            <a href=''><img src={logo} className='logo'></img></a>
+            <Link to='/'><img src={logo} className='logo'></img></Link>
             <ul>
-                <li><a href='#' className='first'>Home</a></li>
-                <li><a href='#' className='second'>Menu</a></li>
-                <li><a href='#' className='third'>Form</a></li>
+                <li><Link to='/' className='first'>Home</Link></li>
+                <li><Link to='/recipes' className='second'>Recipes</Link></li>
+                <li><Link to='/form' className='third'>Form</Link></li>
             </ul>
         </header>
     </div>
