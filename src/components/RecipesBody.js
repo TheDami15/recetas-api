@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/recipesBody.css';
 
 const RecipesBody = () => {
@@ -36,6 +37,7 @@ const RecipesBody = () => {
 
   return (
     <div className='body'>
+      <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></link>
       <div className='filter-container'>
         <h1>Select allergens to exclude:</h1>
         {commonAllergens.map(allergen => (
@@ -57,6 +59,12 @@ const RecipesBody = () => {
           <div className='recipe-card' key={recipe._id}>
             <img src={recipe.imageUrl} alt={recipe.nombre} />
             <h2>{recipe.nombre}</h2>
+            <Link to="/formrecipes">
+              <button className="editbtn">
+                <i className="bx bx-edit"></i>
+              </button>
+            </Link>
+            
           </div>
         ))}
       </div>
