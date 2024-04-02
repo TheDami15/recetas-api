@@ -1,39 +1,67 @@
-//rafc
-//CSS
-import '../styles/recipesBody.css'
-import { useFetch } from '../useFetch';
+import React, { useState, useEffect } from 'react';
+import '../styles/recipesBody.css';
 
 const RecipesBody = () => {
-  const { data, loading } = useFetch("https://apirecetes-50a9e4e6edb1.herokuapp.com/api/"); 
+  const [selectedAllergens, setSelectedAllergens] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const commonAllergens = ['huevos', 'gluten', 'lácteos', 'pescado'];
+
+  useEffect(() => {
+    fetchRecipes();
+  }, [selectedAllergens]);
+
+  const handleAllergenChange = (event) => {
+    const { value, checked } = event.target;
+    setSelectedAllergens(prev => 
+      checked ? [...prev, value] : prev.filter(allergen => allergen !== value)
+    );
+  };
+
+  const fetchRecipes = async () => {
+    setLoading(true);
+    const endpoint = selectedAllergens.length > 0
+      ? `https://apirecetes-50a9e4e6edb1.herokuapp.com/api/sin-alergenos/${selectedAllergens.join(',')}`
+      : 'https://apirecetes-50a9e4e6edb1.herokuapp.com/api/';
+    try {
+      const response = await fetch(endpoint);
+      const data = await response.json();
+      setRecipes(data);
+    } catch (error) {
+      console.error('Error fetching recipes:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-  <div className='body'>
-    <div className='container'>
-      <h1>
-        <strong style={{ color: '#66cbbb' }}>Re</strong>
-        <strong style={{ color: '#f9b548' }}>ce</strong>
-        <strong style={{ color: '#ec2e1e' }}>tas</strong>
-      </h1>
+    <div className='body'>
+      <div className='filter-container'>
+        <h1>Select allergens to exclude:</h1>
+        {commonAllergens.map(allergen => (
+          <div key={allergen}>
+            <input
+              type="checkbox"
+              id={allergen}
+              value={allergen}
+              onChange={handleAllergenChange}
+              checked={selectedAllergens.includes(allergen)}
+            />
+            <label htmlFor={allergen}>{allergen}</label>
+          </div>
+        ))}
+      </div>
       
-      <div className='recipes-container'>
-        {loading && <p key="loading">Cargando...</p>}
-        {data?.map((recipe, index) => (
-          <div className='recipe-card' key={recipe.id || index}>
-            <strong>Nombre de la receta:</strong> {recipe.nombre}. <br/>
-            <strong>Ingredientes:</strong>
-            <ul className='ingr'>
-              {recipe.ingredientes.split(',').map((ingredient, idx) => (
-                <li key={idx}>{ingredient.trim()}</li>
-              ))}
-            </ul>
+      <div className='recipes-grid'>
+        {loading ? <p>Cargando...</p> : recipes.map((recipe) => (
+          <div className='recipe-card' key={recipe._id}>
+            <img src={recipe.imageUrl} alt={recipe.nombre} />
+            <h2>{recipe.nombre}</h2>
           </div>
         ))}
       </div>
     </div>
-  </div>
+  );
+};
 
-
-  )
-}
-
-export default RecipesBody
+export default RecipesBody;
