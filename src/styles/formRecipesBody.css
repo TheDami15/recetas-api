@@ -1,0 +1,54 @@
+.bodyrb{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.formularioRecipes {
+    width: 400px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  .formularioRecipes .labelfrb {
+    display: block;
+    margin-bottom: 8px;
+  }
+  .formularioRecipes input[type="text"],
+  .formularioRecipes textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .alerg{
+    padding-top: 25px;
+  }
+  .formularioRecipes select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  .formularioRecipes label {
+    margin-right: 10px;
+  }
+  .btnsub{
+   padding-left: 130px;
+   padding-top: 25px;
+  }
+  .formularioRecipes button {
+    background-color: #ec2e1e;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .formularioRecipes button:hover {
+    background-color: #f9b548;
+  }

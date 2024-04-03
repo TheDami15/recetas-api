@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import '../styles/recipesBody.css';
 
 const RecipesBody = () => {
@@ -47,16 +46,6 @@ const RecipesBody = () => {
 
   return (
     <div className='body'>
-      
-      
-      <div className='recipes-grid'>
-        {loading ? <p>Cargando...</p> : recipes.map((recipe) => (
-          <div className='recipe-card' key={recipe._id}>
-            <img src={recipe.imageUrl} alt={recipe.nombre} />
-            <h2>{recipe.nombre}</h2>
-          </div>
-        ))}
-      </div>
       <div className='filter-container'>
         <h1>Select allergens to exclude:</h1>
         {commonAllergens.map(allergen => (
@@ -69,6 +58,15 @@ const RecipesBody = () => {
               checked={selectedAllergens.includes(allergen)}
             />
             <label htmlFor={allergen}>{allergen}</label>
+          </div>
+        ))}
+      </div>
+      
+      <div className='recipes-grid'>
+        {loading ? <p>Cargando...</p> : recipes.map((recipe) => (
+          <div className='recipe-card' key={recipe._id}>
+            <img src={recipe.imageUrl} alt={recipe.nombre} />
+            <h2>{recipe.nombre}</h2>
           </div>
         ))}
       </div>
