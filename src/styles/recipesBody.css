@@ -54,3 +54,22 @@ h2 {
   scale: 1.5;
   align-items:end;
 }
+.createbtn{
+  background-color: transparent;
+  border-style: none;
+  scale: 3;
+  align-items:end;
+  color: #66cbbb;
+}
+.createrecipe{
+  background-color: transparent;
+  padding-left: 1120px;
+
+}
+.deletebtn{
+  color: #ec2e1e;
+  background-color: transparent;
+  border-style: none;
+  scale: 1.5;
+  align-items:end;
+}

@@ -74,6 +74,14 @@ const RecipesBody = () => {
       <div className='filter-container'>
         <h1>Select allergens to exclude:</h1>
         {renderAllergenCheckboxes()}
+        <div className='createrecipe'>
+          <Link to="/formrecipes">
+                <button className="createbtn">
+                <i class='bx bxs-book-heart bx-tada' ></i>
+                </button>
+          </Link>
+        </div>
+     
       </div>
       
       <div className='recipes-grid'>
@@ -86,6 +94,11 @@ const RecipesBody = () => {
                 <i className="bx bx-edit"></i>
               </button>
             </Link>
+
+            <button className="deletebtn">
+            <i class='bx bx-x-circle'></i>
+              </button>
+           
           </div>
         ))}
       </div>
