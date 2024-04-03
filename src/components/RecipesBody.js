@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import '../styles/recipesBody.css';
 
 const RecipesBody = () => {
@@ -6,6 +7,16 @@ const RecipesBody = () => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const commonAllergens = ['huevos', 'gluten', 'lácteos', 'pescado'];
+  const location = useLocation();
+
+  // Este useEffect lee los parámetros de la URL y establece el estado inicial
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const initialFilter = queryParams.get('filter');
+    if (initialFilter) {
+      setSelectedAllergens(initialFilter.split(','));
+    }
+  }, [location]); // Se ejecuta una vez al cargar el componente o cuando cambia la URL
 
   useEffect(() => {
     fetchRecipes();
@@ -36,6 +47,16 @@ const RecipesBody = () => {
 
   return (
     <div className='body'>
+      
+      
+      <div className='recipes-grid'>
+        {loading ? <p>Cargando...</p> : recipes.map((recipe) => (
+          <div className='recipe-card' key={recipe._id}>
+            <img src={recipe.imageUrl} alt={recipe.nombre} />
+            <h2>{recipe.nombre}</h2>
+          </div>
+        ))}
+      </div>
       <div className='filter-container'>
         <h1>Select allergens to exclude:</h1>
         {commonAllergens.map(allergen => (
@@ -51,16 +72,8 @@ const RecipesBody = () => {
           </div>
         ))}
       </div>
-      
-      <div className='recipes-grid'>
-        {loading ? <p>Cargando...</p> : recipes.map((recipe) => (
-          <div className='recipe-card' key={recipe._id}>
-            <img src={recipe.imageUrl} alt={recipe.nombre} />
-            <h2>{recipe.nombre}</h2>
-          </div>
-        ))}
-      </div>
     </div>
+    
   );
 };
 
