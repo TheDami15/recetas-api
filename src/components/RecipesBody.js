@@ -8,7 +8,7 @@ const RecipesBody = () => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null); // Estado para manejar errores
-  const commonAllergens = ['huevos', 'gluten', 'lácteos', 'pescado'];
+  const commonAllergens = ['huevos', 'gluten', 'lácteos', 'pescado', 'vegano', 'sugar-free'];
   const location = useLocation();
 
   // Este useEffect lee los parámetros de la URL y establece el estado inicial
@@ -77,7 +77,7 @@ const RecipesBody = () => {
         <div className='createrecipe'>
           <Link to="/formrecipes">
                 <button className="createbtn">
-                <i class='bx bxs-book-heart bx-tada' ></i>
+                <i className='bx bxs-book-heart bx-tada' ></i>
                 </button>
           </Link>
         </div>
@@ -96,7 +96,7 @@ const RecipesBody = () => {
             </Link>
 
             <button className="deletebtn">
-            <i class='bx bx-x-circle'></i>
+            <i className='bx bx-x-circle'></i>
               </button>
            
           </div>

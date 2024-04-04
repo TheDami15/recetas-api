@@ -26,6 +26,10 @@ const FormRecipesBody = () => {
                 <label for="lacteos">Lácteos</label>
                 <input type="checkbox" id="pescado" name="alergenos" value="pescado"/>
                 <label for="pescado">Pescado</label>
+                <input type="checkbox" id="vegano" name="alergenos" value="vegano"/>
+                <label for="vegano">Vegano</label>
+                <input type="checkbox" id="sugar-free" name="alergenos" value="sugar-free"/>
+                <label for="sugar-free">Sugar-free</label>
             </div>
             <div className='btnsub'>
             <button type="submit">Enviar</button>
