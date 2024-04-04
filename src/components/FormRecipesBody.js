@@ -1,40 +1,112 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // Importa axios para realizar solicitudes HTTP
+import { useLocation } from 'react-router-dom';
+
 //CSS
 import '../styles/formRecipesBody.css'
+
 const FormRecipesBody = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const  id= queryParams.get('recipeId');
+ 
+  const [recipeData, setRecipeData] = useState({
+    nombre: '',
+    ingredientes: '',
+    image: '',
+    alergenos: []
+  });
+
+    // Función para obtener los detalles de la receta desde la API
+    useEffect(() => {
+      const fetchRecipeDetails = async () => {
+        try {
+          const response = await axios.get(`https://apirecetes-50a9e4e6edb1.herokuapp.com/api/${id}`);
+          setRecipeData(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error('Error fetching recipe details:', error);
+        }
+      };
+  
+      if (id) {
+        fetchRecipeDetails();
+      }
+    }, [id]);
+
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+      setRecipeData(prevState => ({
+        ...prevState,
+        [name]: value
+      }));
+    };
+  
+    const handleCheckboxChange = (event) => {
+      const { value, checked } = event.target;
+      if (checked) {
+        setRecipeData(prevState => ({
+          ...prevState,
+          alergenos: [...prevState.alergenos, value]
+        }));
+      } else {
+        setRecipeData(prevState => ({
+          ...prevState,
+          alergenos: prevState.alergenos.filter(item => item !== value)
+        }));
+      }
+    };
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      try {
+        const token = localStorage.getItem('token');
+    
+        const response = await axios.post('https://apirecetes-50a9e4e6edb1.herokuapp.com/api/', recipeData, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        
+        console.log('Recipe created:', response.data);
+        // Aquí puedes redirigir al usuario a la página de detalles de la receta creada o hacer otras acciones necesarias
+      } catch (error) {
+        console.error('Error creating recipe:', error);
+      }
+    };
+  
+    
   return (
     <div className='bodyrb'>
          <div className='formularioRecipes'>
         <h2>New Recipe</h2>
-        <form>
-            <label className='labelfrb' for="nombre">Name:</label>
-            <input type="text" id="nombre" name="nombre" required></input>
+        <form onSubmit={handleSubmit}>
+          <label className='labelfrb' htmlFor="nombre">Name:</label>
+          <input type="text" id="nombre" name="nombre" value={recipeData.nombre}  onChange={handleInputChange} required></input>
 
-            <label className='labelfrb' for="descripcion">Description:</label>
-            <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+          <label className='labelfrb' htmlFor="ingredientes">Description:</label>
+          <textarea id="ingredientes" name="ingredientes" rows="4" value={recipeData.ingredientes} onChange={handleInputChange} required />
 
-            <label className='labelfrb' for="imagen">Img:</label>
-            <input type="file" id="imagen" name="imagen"></input>
+          <label className='labelfrb' htmlFor="imagen">Img:</label>
+          <input type="file" id="imagen" name="image" value={recipeData.image} onChange={handleInputChange}></input>
 
-            <div className='alerg'>
-                <label className='labelfrb'>Alérgenos:</label>
-                <input type="checkbox" id="huevos" name="alergenos" value="huevos"/>
-                <label for="huevos">Huevos</label>
-                <input type="checkbox" id="gluten" name="alergenos" value="gluten"/>
-                <label for="gluten">Gluten</label>
-                <input type="checkbox" id="lacteos" name="alergenos" value="lacteos"/>
-                <label for="lacteos">Lácteos</label>
-                <input type="checkbox" id="pescado" name="alergenos" value="pescado"/>
-                <label for="pescado">Pescado</label>
-                <input type="checkbox" id="vegano" name="alergenos" value="vegano"/>
-                <label for="vegano">Vegano</label>
-                <input type="checkbox" id="sugar-free" name="alergenos" value="sugar-free"/>
-                <label for="sugar-free">Sugar-free</label>
-            </div>
-            <div className='btnsub'>
+          <div className='alerg'>
+            <label className='labelfrb'>Alérgenos:</label>
+            <input type="checkbox" id="huevos" name="alergenos" value="huevos" checked={recipeData.alergenos.includes('huevos')} onChange={handleCheckboxChange} />
+            <label htmlFor="huevos">Huevos</label>
+            <input type="checkbox" id="gluten" name="alergenos" value="gluten" checked={recipeData.alergenos.includes('gluten')} onChange={handleCheckboxChange} />
+            <label htmlFor="gluten">Gluten</label>
+            <input type="checkbox" id="lacteos" name="alergenos" value="lacteos" checked={recipeData.alergenos.includes('lácteos')} onChange={handleCheckboxChange} />
+            <label htmlFor="lacteos">Lácteos</label>
+            <input type="checkbox" id="pescado" name="alergenos" value="pescado" checked={recipeData.alergenos.includes('pescado')} onChange={handleCheckboxChange} />
+            <label htmlFor="pescado">Pescado</label>
+            <input type="checkbox" id="vegano" name="alergenos" value="vegano" checked={recipeData.alergenos.includes('vegano')} onChange={handleCheckboxChange} />
+            <label htmlFor="vegano">Vegano</label>
+            <input type="checkbox" id="sugar-free" name="alergenos" value="sugar-free" checked={recipeData.alergenos.includes('sugar-free')} onChange={handleCheckboxChange} />
+            <label htmlFor="sugar-free">Sugar-free</label>
+          </div>
+          <div className='btnsub'>
             <button type="submit">Enviar</button>
-            </div>
-           
+          </div>
         </form>
     </div>
     </div>
