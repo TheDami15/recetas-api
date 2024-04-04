@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const RecipeCard = ({ recipe, deleteRecipe, displayActionButtons }) => {
+const RecipeCard = ({ recipe, onDelete, displayActionButtons }) => {
   return (
     <div className='recipe-card' key={recipe._id}>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></link>
+      <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></link>
       <img src={recipe.imageUrl} alt={recipe.nombre} />
       <h2>{recipe.nombre}</h2>
       {displayActionButtons && (
@@ -15,7 +15,7 @@ const RecipeCard = ({ recipe, deleteRecipe, displayActionButtons }) => {
             </button>
           </Link>
 
-          <button className="deletebtn" onClick={() => deleteRecipe(recipe._id)}>
+          <button className="deletebtn" onClick={() => onDelete(recipe._id)}>
             <i className='bx bx-x-circle'></i>
           </button>
         </>
