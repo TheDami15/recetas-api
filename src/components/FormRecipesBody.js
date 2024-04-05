@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Importa axios para realizar solicitudes HTTP
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 //CSS
 import '../styles/formRecipesBody.css'
@@ -8,8 +9,9 @@ import '../styles/formRecipesBody.css'
 const FormRecipesBody = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const  id= queryParams.get('recipeId');
- 
+  const id = queryParams.get('recipeId');
+  const navigate = useNavigate();
+
   const [recipeData, setRecipeData] = useState({
     nombre: '',
     ingredientes: '',
@@ -17,77 +19,115 @@ const FormRecipesBody = () => {
     alergenos: []
   });
 
-    // Función para obtener los detalles de la receta desde la API
-    useEffect(() => {
-      const fetchRecipeDetails = async () => {
-        try {
-          const response = await axios.get(`https://apirecetes-50a9e4e6edb1.herokuapp.com/api/${id}`);
-          setRecipeData(response.data);
-          console.log(response.data);
-        } catch (error) {
-          console.error('Error fetching recipe details:', error);
-        }
-      };
-  
-      if (id) {
-        fetchRecipeDetails();
+  // Función para obtener los detalles de la receta desde la API
+  useEffect(() => {
+    const fetchRecipeDetails = async () => {
+      try {
+        const response = await axios.get(`https://apirecetes-50a9e4e6edb1.herokuapp.com/api/${id}`);
+        setRecipeData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error('Error fetching recipe details:', error);
       }
-    }, [id]);
+    };
 
-    const handleInputChange = (event) => {
-      const { name, value } = event.target;
+    if (id) {
+      fetchRecipeDetails();
+    }
+  }, [id]);
+
+  const handleInputChange = (event) => {
+    const { name, type, value, files } = event.target;
+    if (type === 'file') {
+      setRecipeData(prevState => ({
+        ...prevState,
+        [name]: files[0]
+      }));
+    } else {
       setRecipeData(prevState => ({
         ...prevState,
         [name]: value
       }));
+    }
+  };
+
+
+  const handleCheckboxChange = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setRecipeData(prevState => ({
+        ...prevState,
+        alergenos: [...prevState.alergenos, value]
+      }));
+    } else {
+      setRecipeData(prevState => ({
+        ...prevState,
+        alergenos: prevState.alergenos.filter(item => item !== value)
+      }));
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const token = localStorage.getItem('token');
+    const headers = {
+      'Authorization': `Bearer ${token}`,
     };
-  
-    const handleCheckboxChange = (event) => {
-      const { value, checked } = event.target;
-      if (checked) {
-        setRecipeData(prevState => ({
-          ...prevState,
-          alergenos: [...prevState.alergenos, value]
-        }));
+
+    try {
+      let response;
+      const formData = new FormData();
+      formData.append('nombre', recipeData.nombre);
+      formData.append('ingredientes', recipeData.ingredientes);
+      recipeData.alergenos.forEach(alergeno => formData.append('alergenos[]', alergeno));
+
+      // Añadir la imagen solo si se está creando una receta nueva
+      if (!id && recipeData.image) formData.append('image', recipeData.image);
+
+      if (id) {
+        // Caso de actualización
+        // Aquí se asume que la actualización no necesita enviar la imagen
+        const dataForUpdate = {
+          nombre: recipeData.nombre,
+          ingredientes: recipeData.ingredientes,
+          alergenos: recipeData.alergenos,
+        };
+        response = await axios.put(`https://apirecetes-50a9e4e6edb1.herokuapp.com/api/${id}`, dataForUpdate, { headers });
       } else {
-        setRecipeData(prevState => ({
-          ...prevState,
-          alergenos: prevState.alergenos.filter(item => item !== value)
-        }));
+        // Caso de creación
+        response = await axios.post('https://apirecetes-50a9e4e6edb1.herokuapp.com/api/', formData, { headers });
       }
-    };
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      try {
-        const token = localStorage.getItem('token');
-    
-        const response = await axios.post('https://apirecetes-50a9e4e6edb1.herokuapp.com/api/', recipeData, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        
-        console.log('Recipe created:', response.data);
-        // Aquí puedes redirigir al usuario a la página de detalles de la receta creada o hacer otras acciones necesarias
-      } catch (error) {
-        console.error('Error creating recipe:', error);
-      }
-    };
-  
-    
+
+      console.log(id ? 'Recipe updated:' : 'Recipe created:', response.data);
+      // Redireccionar al usuario
+      navigate('/recipes');
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+
   return (
     <div className='bodyrb'>
-         <div className='formularioRecipes'>
+      <div className='formularioRecipes'>
         <h2>New Recipe</h2>
         <form onSubmit={handleSubmit}>
           <label className='labelfrb' htmlFor="nombre">Name:</label>
-          <input type="text" id="nombre" name="nombre" value={recipeData.nombre}  onChange={handleInputChange} required></input>
+          <input type="text" id="nombre" name="nombre" value={recipeData.nombre} onChange={handleInputChange} required></input>
 
           <label className='labelfrb' htmlFor="ingredientes">Description:</label>
           <textarea id="ingredientes" name="ingredientes" rows="4" value={recipeData.ingredientes} onChange={handleInputChange} required />
 
-          <label className='labelfrb' htmlFor="imagen">Img:</label>
-          <input type="file" id="imagen" name="image" value={recipeData.image} onChange={handleInputChange}></input>
+          {
+            !id && (
+              <div>
+                <label className='labelfrb' htmlFor="imagen">Img:</label>
+                <input type="file" id="imagen" name="image" onChange={handleInputChange} required></input>
+              </div>
+            )
+          }
+
 
           <div className='alerg'>
             <label className='labelfrb'>Alérgenos:</label>
@@ -108,9 +148,9 @@ const FormRecipesBody = () => {
             <button type="submit">Enviar</button>
           </div>
         </form>
+      </div>
     </div>
-    </div>
-   
+
   )
 }
 
