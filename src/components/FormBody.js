@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 //CSS
 import '../styles/formBody.css'
 const FormBody = () => {
@@ -21,6 +22,7 @@ const FormBody = () => {
     // For login status
     const [loginErrors, setLoginErrors] = useState([]);
     const [loginSuccess, setLoginSuccess] = useState('');
+    const navigate = useNavigate();
 
 
     // Manejador de cambios en el formulario de registro
@@ -73,6 +75,7 @@ const FormBody = () => {
             setLoginErrors([]); // Reset errors if successful
             localStorage.setItem('token', response.data.token); // Store the token
             setLoginSuccess("Inicio de sesión exitoso. ¡Bienvenido de nuevo!");
+            navigate('/');
         } catch (error) {
             if (error.response) {
                 if (error.response.status === 400) {
@@ -96,7 +99,7 @@ const FormBody = () => {
             }
         }
     };
-    
+
 
 
 

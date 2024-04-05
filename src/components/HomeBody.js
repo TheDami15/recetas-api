@@ -47,7 +47,7 @@ const HomeBody = () => {
 
       <ul className='thumb'>
         <li><img src={gluten} alt='gluten' onClick={() => { imgSlider(gluten); changeCircleColor('#f9b548'); setSelectedFilter('gluten'); }}></img></li>
-        <li><img src={vegano} alt='vegano' onClick={() => { imgSlider(vegano); changeCircleColor('#f37f34'); setSelectedFilter('huevos'); }}></img></li>
+        <li><img src={vegano} alt='vegano' onClick={() => { imgSlider(vegano); changeCircleColor('#f37f34'); setSelectedFilter('vegano'); }}></img></li>
         <li><img src={sugar} alt='sugar-free' onClick={() => { imgSlider(sugar); changeCircleColor('#ec2e1e'); setSelectedFilter('sugar-free'); }}></img></li>
       </ul>
     </div>
